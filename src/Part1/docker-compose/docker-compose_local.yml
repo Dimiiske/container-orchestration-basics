@@ -1,0 +1,110 @@
+version: '3.8'
+
+services:
+
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.10-management
+    restart: always
+    networks:
+      - default-network
+
+  database:
+    container_name: database
+    build: ./services/database/
+    env_file:
+      - ./default.env
+    restart: always
+    depends_on:
+      - rabbitmq
+    networks:
+      - default-network
+
+  booking-service:
+    container_name: booking-service
+    build: ./services/booking-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=reservations_db
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  gateway-service:
+    container_name: gateway-service
+    build: ./services/gateway-service/
+    env_file:
+      - ./default.env
+    ports:
+      - 8087:8087
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  hotel-service:
+    container_name: hotel-service
+    build: ./services/hotel-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=hotels_db
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  loyalty-service:
+    container_name: loyalty-service
+    build: ./services/loyalty-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=balances_db
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  payment-service:
+    container_name: payment-service
+    build: ./services/payment-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=payments_db
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  report-service:
+    container_name: report-service
+    build: ./services/report-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=statistics_db
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+  session-service:
+    container_name: session-service
+    build: ./services/session-service/
+    env_file:
+      - ./default.env
+    environment:
+      - POSTGRES_DB=users_db
+    ports:
+      - 8081:8081
+    depends_on:
+      - database
+    networks:
+      - default-network
+
+networks:
+  default-network:

@@ -6,7 +6,7 @@ The use of docker compose and docker swarm tools to run containers together and 
 
 1) Write a Dockerfile for each individual microservice. The necessary dependencies are described in the materials. Write the size of the built images of any service in the report in different ways.
 
-2) Write a docker-compose file that performs a correct interaction of services. Forward ports to access the gateway service and session service from the local machine. Help on docker compose is in the materials.
+2) Write a docker-compose file that performs a correct interaction of services. Forward ports to access the gateway service and session service from the local machine.
 
 3) Build and deploy a web service using a docker compose file written on the local machine.
 
@@ -20,7 +20,7 @@ The use of docker compose and docker swarm tools to run containers together and 
 
 ## Part 3. Creating a simple docker swarm
 
-1) Modify Vagrantfile to create three machines: manager01, worker01, worker02. Write shell scripts to install docker inside machines, initialize and connect to docker swarm. Help on docker swarm is in the materials.
+1) Modify Vagrantfile to create three machines: manager01, worker01, worker02. Write shell scripts to install docker inside machines, initialize and connect to docker swarm.
 
 2) Load the built images on the docker hub and modify the docker-compose file to load the images located on the docker hub.
 
